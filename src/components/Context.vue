@@ -11,8 +11,14 @@
           <span v-for="item in page.num.top"
                 class="initial" 
                 v-bind:class="page.pageclass.top"
-                >{{item}}</span>
-        <span>3</span>
+                >{{item}} <strong>啊</strong>
+                <!-- <span>啊啊啊</span> -->
+                </span>
+          <!-- <span v-for="item in page.num.top"
+                class="initial" 
+                v-bind:class="page.pageclass.top"
+                >{{item}}</span> -->
+          <span>3</span>
       </div>
       <div @mouseenter="page.pageclass.bottom.pageEnter = true;"
            @mouseleave="page.pageclass.bottom.pageEnter = false;" 
@@ -27,19 +33,19 @@
       <div class="hid-h1" >
       <!-- 改这里，动画生效的地方，没有加enter只是在测试 -->
         <h1 @mouseenter="content.class.transleave=true"
-            
+            @mouseleave="content.class.transleave=false"
             v-bind:class="content.class">猪队友开黑房间</h1>
       </div>
       <div class="hid-small">
         <small v-bind:class="content.class">zhu dui you Black room</small>
       </div>
-      <div class="line"></div>
+      <div class="line" v-bind:class="content.class"></div>
       <div class="text">
         <p v-bind:class="content.class">独特的开黑房间包括了语音，视频，文字三种交流方式</p>
         <p v-bind:class="content.class">独特的开黑房间包括了语音，视频，文字三种交流方式</p>
       </div>
     </div>
-      <img class="right-content" src="../assets/diyiping-tu.png">
+      <img class="right-content" v-bind:class="content.class" src="../assets/diyiping-tu.png">
   </div>
 </template>
 
@@ -51,7 +57,8 @@ export default {
         page:{
           num:{
             bottom:[4,5,6,6],
-            top:[1,2,3,3]
+            top:[1,2,3,3],
+            // text:
           },
           pageclass:{
             top:{
@@ -102,6 +109,7 @@ export default {
     transform: translate(-50%,-50%);
     .title{
       position: absolute;
+      height: 0.23rem;
       top: -0.1rem;
       left: 0.3rem;
       background: white;
@@ -111,16 +119,15 @@ export default {
         display: inline-block;
         transition: all 1s;
       }
+      .transleave{
+        margin-top:.3rem;
+      }
     }
     .page{
       background-color: white;
       padding: 0.1rem 0;
       width: 0.8rem;
       font-size: 20px;
-      /*position: absolute;
-      top: 39%;
-      left: 0px;
-      transform: translate(-50%,0);*/
       hr{
         width: 0.2rem;
         margin: 0 auto;
@@ -134,6 +141,20 @@ export default {
           margin: 0 auto;
           line-height: 0.35rem;
           color: #3c3463;
+          overflow:hidden; 
+          position: relative;
+          strong{
+            display: inline-block;
+            position: absolute;
+            background-color: white;
+            opacity: 0;
+            transform: translate(-100%,100%);
+            transition: all .5s;
+          }
+        }
+        span:hover>strong{
+            opacity: 1;
+            transform: translate(-100%,0%);
         }
         .initial{
           height: 0.0rem;
@@ -164,7 +185,6 @@ export default {
       }
     }
     .left-content{
-      /*border: 1px solid black;*/
       width: 3.9rem;
       position: absolute;
       top: 36.7%;
@@ -173,7 +193,6 @@ export default {
       .hid-h1{
         height: 0.40rem;
         overflow-y:hidden;
-        /*margin-bottom: -0.14rem;*/
       }
       .hid-small{
         height: 0.33rem;
@@ -198,14 +217,19 @@ export default {
       small{
         display: inline-block;
         font-size: 0.2rem;
-        /*line-height: 0.6rem;*/
         color: #9d65b2;
         opacity: 1;
         transition: all 1s;
       }
       .line{
-        border:0.02rem solid #551e85;
+        height: 0.04rem;
         width: 0.82rem;
+        background-color: #551e85;
+        transition: all 1s;
+      }
+      .line.transleave{
+        width: 0;
+        transform: translate3d(0,0px,0);
       }
       .text{
         margin-left: 1.0rem;
@@ -222,12 +246,15 @@ export default {
     }
     .right-content{
       width: 4rem;
-      /*height: 65%;*/
-      /*border:1px solid black;*/
       position: absolute;
       top: 50%;
       right: 0;
       transform: translate(0,-50%);
+      transition: all 1s;
+    }
+    .right-content.transleave{
+      opacity: 0;
+      transform: translate(80%,-50%);
     }
   }
 
