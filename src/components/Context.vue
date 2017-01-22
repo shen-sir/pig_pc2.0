@@ -2,7 +2,7 @@
   <div class="body">
     <div class="title" >
       <!-- 这里的span标签动画没有生效，控制台中看不到过渡的class属性 -->
-      <span v-bind:class="content.class">TITLE</span>
+      <span v-bind:class="content.class">{{content.context.title}}</span>
     </div>
     <div class="page">
       <div @mouseenter="page.pageclass.top.pageEnter = true;"
@@ -12,12 +12,7 @@
                 class="initial" 
                 v-bind:class="page.pageclass.top"
                 >{{item}} <strong>啊</strong>
-                <!-- <span>啊啊啊</span> -->
                 </span>
-          <!-- <span v-for="item in page.num.top"
-                class="initial" 
-                v-bind:class="page.pageclass.top"
-                >{{item}}</span> -->
           <span>3</span>
       </div>
       <div @mouseenter="page.pageclass.bottom.pageEnter = true;"
@@ -34,18 +29,20 @@
       <!-- 改这里，动画生效的地方，没有加enter只是在测试 -->
         <h1 @mouseenter="content.class.transleave=true"
             @mouseleave="content.class.transleave=false"
-            v-bind:class="content.class">猪队友开黑房间</h1>
+            v-bind:class="content.class">{{content.context.h1}}</h1>
       </div>
       <div class="hid-small">
-        <small v-bind:class="content.class">zhu dui you Black room</small>
+        <small v-bind:class="content.class">{{content.context.small}}</small>
       </div>
       <div class="line" v-bind:class="content.class"></div>
       <div class="text">
-        <p v-bind:class="content.class">独特的开黑房间包括了语音，视频，文字三种交流方式</p>
-        <p v-bind:class="content.class">独特的开黑房间包括了语音，视频，文字三种交流方式</p>
+        <p v-bind:class="content.class" v-html="content.context.text"></p>
       </div>
     </div>
-      <img class="right-content" v-bind:class="content.class" src="../assets/diyiping-tu.png">
+    <img class="right-content" v-bind:class="content.class" src="../assets/diyiping-tu.png">
+    <div class="oh">
+      <div class="botton" v-bind:class="content.class"></div>
+    </div>
   </div>
 </template>
 
@@ -76,7 +73,16 @@ export default {
           class:{
               'transleave':false,
               'transenter':false
+          },
+          context:{
+              title:'title',
+              h1:'猪队友开黑房间',
+              small:'zhu dui you kaihei',
+              text:'独特的开黑房间包括了语音，视频，文字三种交流方式<br>独特的开黑房间包括了语音，视频，文字三种交流方式',
+              imgUrl:'',
+              color:''
           }
+            
         }
       
     }
@@ -244,6 +250,30 @@ export default {
         }
       }
     }
+    .oh{
+      width: 2.22rem;
+      height: 0.38rem;
+      /*border:1px solid red;*/
+      overflow-y: hidden;
+      background-color: white;
+      position: absolute;
+      bottom: -0.4rem;
+      left: 50%;
+      transform: translate(-50%,-50%);
+      .botton{
+        width: 1.22rem;
+        height: 0.36rem;
+        border:1px solid black;
+        background-color: red;
+        margin: 0 auto;
+        transition: all 1s;
+        /*background-image: url();*/
+      }
+      .botton.transleave{
+        margin-top: 0.5rem;
+      }
+    }
+    
     .right-content{
       width: 4rem;
       position: absolute;
