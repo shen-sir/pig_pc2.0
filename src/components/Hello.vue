@@ -1,6 +1,10 @@
 <template>
   <div class="body">
   <canvas height="620" width="1360" id="canvas" style=" height: 100%;"/>
+  <div class="text">
+    <h1>猪队友</h1>
+    <h1>P I G G Y M A G E</h1>
+  </div>
   </div>
 </template>
 
@@ -19,6 +23,7 @@ window.canvasObj={
       }
 export default {
   name: 'hello',
+  // props:[''],
   data () {
     return {
       windowSize:window.innerWidth/window.innerHeight,
@@ -188,6 +193,16 @@ export default {
     background-image: url("../assets/q.png");
     background-size: cover;
     background-position: center;
+    .text{
+      position: absolute;
+      top: 37%;
+      left: 50%;
+      transform: translate(-50%,-50%);
+      font-size: 0.3rem;
+      color: white;
+      text-align: center;
+      width: 6rem;
+    }
    /* img{
       position: absolute;
       top: 50%;

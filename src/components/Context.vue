@@ -20,15 +20,18 @@
             class="bottom">
           <span v-for="item in page.num.bottom"
                 class="initial"
-                v-bind:class="page.pageclass.bottom">{{item}}</span>
+                v-bind:class="page.pageclass.bottom">{{item}}<strong>啊</strong></span>
         <span>6</span>
       </div>
     </div>
     <div class="left-content">
       <div class="hid-h1" >
       <!-- 改这里，动画生效的地方，没有加enter只是在测试 -->
-        <h1 @mouseenter="content.class.transleave=true"
+        <!-- <h1 @mouseenter="content.class.transleave=true"
             @mouseleave="content.class.transleave=false"
+            @transitionend="trans"
+            v-bind:class="content.class">{{content.context.h1}}</h1> -->
+        <h1 @transitionend="trans"
             v-bind:class="content.class">{{content.context.h1}}</h1>
       </div>
       <div class="hid-small">
@@ -39,7 +42,8 @@
         <p v-bind:class="content.class" v-html="content.context.text"></p>
       </div>
     </div>
-    <img class="right-content" v-bind:class="content.class" src="../assets/diyiping-tu.png">
+    <h1>000{{message}}</h1>
+    <img class="right-content" v-bind:class="content.class" :src="content.context.imgUrl">
     <div class="oh">
       <div class="botton" v-bind:class="content.class"></div>
     </div>
@@ -49,8 +53,10 @@
 <script>
 export default {
   name: 'Context',
+  props:['message'],
   data () {
     return {
+        // parent:this.message,
         page:{
           num:{
             bottom:[4,5,6,6],
@@ -79,23 +85,86 @@ export default {
               h1:'猪队友开黑房间',
               small:'zhu dui you kaihei',
               text:'独特的开黑房间包括了语音，视频，文字三种交流方式<br>独特的开黑房间包括了语音，视频，文字三种交流方式',
-              imgUrl:'',
+              imgUrl:'../static/img/diyiping-tu.png',
               color:''
           }
             
-        }
+        },
+        textData:[
+          {
+            title:'title0',
+            h1:'猪队友开黑房间001',
+            small:'zhu dui you kaihei0',
+            text:'独特的开黑房间包括了语音，视频，文字三种交流方式<br>独特的开黑房间包括了语音，视频，文字三种交流方式',
+            imgUrl:'../static/img/diyiping-tu.png',
+            color:''
+          },
+          {
+            title:'title0',
+            h1:'猪队友开黑房间002',
+            small:'zhu dui you kaihei0',
+            text:'独特的开黑房间包括了语音，视频，文字三种交流方式<br>独特的开黑房间包括了语音，视频，文字三种交流方式',
+            imgUrl:'../static/img/diyiping-tu.png',
+            color:''
+          },
+          {
+            title:'title0',
+            h1:'猪队友开黑房间003',
+            small:'zhu dui you kaihei0',
+            text:'独特的开黑房间包括了语音，视频，文字三种交流方式<br>独特的开黑房间包括了语音，视频，文字三种交流方式',
+            imgUrl:'../static/img/diyiping-tu.png',
+            color:''
+          },
+          {
+            title:'title0',
+            h1:'猪队友开黑房间004',
+            small:'zhu dui you kaihei0',
+            text:'独特的开黑房间包括了语音，视频，文字三种交流方式<br>独特的开黑房间包括了语音，视频，文字三种交流方式',
+            imgUrl:'../static/img/diyiping-tu.png',
+            color:''
+          },
+          {
+            title:'title0',
+            h1:'猪队友开黑房间005',
+            small:'zhu dui you kaihei0',
+            text:'独特的开黑房间包括了语音，视频，文字三种交流方式<br>独特的开黑房间包括了语音，视频，文字三种交流方式',
+            imgUrl:'../static/img/diyiping-tu.png',
+            color:''
+          },
+          {
+            title:'title0',
+            h1:'猪队友开黑房间006',
+            small:'zhu dui you kaihei0',
+            text:'独特的开黑房间包括了语音，视频，文字三种交流方式<br>独特的开黑房间包括了语音，视频，文字三种交流方式',
+            imgUrl:'../static/img/diyiping-tu.png',
+            color:''
+          }
+        ]
       
     }
   },
   methods:{
-    
+    trans(){
+      // console.log(this.message)
+      this.content.context = this.textData[this.message-1];
+      this.content.class.transleave=false;
+    }
   },
   mounted(){
-    
+    // console.log(this.show)
   },
   computed:{
     pageclass(){
       return 
+    }
+  },
+  watch:{
+    message(val, oldVal){
+      console.log(val+'=='+oldVal)
+      if(val>1){
+        this.content.class.transleave=true;
+      }
+      
     }
   }
 }
@@ -185,9 +254,9 @@ export default {
       .bottom{
         border-top: 1px solid black;
         position: absolute;
-      top: 50%;
-      left: 0.0rem;
-      transform: translate(-50%,0);
+        top: 50%;
+        left: 0.0rem;
+        transform: translate(-50%,0);
       }
     }
     .left-content{
@@ -253,7 +322,6 @@ export default {
     .oh{
       width: 2.22rem;
       height: 0.38rem;
-      /*border:1px solid red;*/
       overflow-y: hidden;
       background-color: white;
       position: absolute;
@@ -267,7 +335,6 @@ export default {
         background-color: red;
         margin: 0 auto;
         transition: all 1s;
-        /*background-image: url();*/
       }
       .botton.transleave{
         margin-top: 0.5rem;

@@ -2,9 +2,9 @@
   <div id="app">
     
     <transition name="fade" >
-      <hello v-show="show.show_1"></hello>
+      <hello v-show="show.show_0"></hello>
     </transition>
-    <Context ></Context>
+    <Context :message="scrollNem"></Context>
   </div>
 </template>
 
@@ -18,13 +18,13 @@ export default {
     return{
       show:{
         // 改初始化
-        // show_1:true,
+        show_0:true,
+        // show_1:false,
         show_1:false,
         show_2:false,
         show_3:false,
         show_4:false,
-        show_5:false,
-        show_6:false
+        show_5:false
       },
       scrollNem:0
     }
@@ -73,15 +73,11 @@ export default {
         return function() {};    
     })(window),
     start(){
-      // alert(0)
-      for(let i=0;i<this.show.length;i++){
-        this.show['show_'+this.scrollNem] = false;
+      for(let i=0;i<6;i++){
+        this.show['show_'+i] = false;
+        // console.log('show_'+i)
       }
-      if (this.scrollNem == 0) {
-        this.show['show_1'] = true;
-      }else{
-        this.show['show_1'] = false;
-      }
+      this.show['show_'+this.scrollNem] = true;
     },
   },
   mounted(){
