@@ -81,61 +81,45 @@ export default {
               'transenter':false
           },
           context:{
-              title:'title',
-              h1:'猪队友开黑房间',
-              small:'zhu dui you kaihei',
-              text:'独特的开黑房间包括了语音，视频，文字三种交流方式<br>独特的开黑房间包括了语音，视频，文字三种交流方式',
-              imgUrl:'../static/img/diyiping-tu.png',
-              color:''
+            title:'PIGGYMATE',
+            h1:'猪队友·主页',
+            small:'PIGGYMATE HOME',
+            text:'"猪队友"是一款多功能社交开黑平台。玩家可以在右上角个人中心包装自己添加。<br>个性标签，上线匹配开黑队友或直接多人开黑。<br>点击小猪上线与好友一起享受开黑乐趣吧。',
+            imgUrl:'../static/img/diyiping-tu.png',
+            color:''
           }
             
         },
         textData:[
           {
-            title:'title0',
-            h1:'猪队友开黑房间001',
-            small:'zhu dui you kaihei0',
-            text:'独特的开黑房间包括了语音，视频，文字三种交流方式<br>独特的开黑房间包括了语音，视频，文字三种交流方式',
+            title:'PIGGYMATE',
+            h1:'猪队友·主页',
+            small:'PIGGYMATE HOME',
+            text:'"猪队友"是一款多功能社交开黑平台。玩家可以在右上角个人中心包装自己添加。<br>个性标签，上线匹配开黑队友或直接多人开黑。<br>点击小猪上线与好友一起享受开黑乐趣吧。',
             imgUrl:'../static/img/diyiping-tu.png',
             color:''
           },
           {
-            title:'title0',
-            h1:'猪队友开黑房间002',
-            small:'zhu dui you kaihei0',
-            text:'独特的开黑房间包括了语音，视频，文字三种交流方式<br>独特的开黑房间包括了语音，视频，文字三种交流方式',
+            title:'PIGGYMATE',
+            h1:'猪队友·开黑房间',
+            small:'PIGGYMATE BLACK ROOM',
+            text:'独特的开黑房间包括了语音，视频，文字三种交流方式。<br>房间中不仅包括了拉人踢人查看个人信息这些基础功能。',
             imgUrl:'../static/img/diyiping-tu.png',
             color:''
           },
           {
-            title:'title0',
-            h1:'猪队友开黑房间003',
-            small:'zhu dui you kaihei0',
-            text:'独特的开黑房间包括了语音，视频，文字三种交流方式<br>独特的开黑房间包括了语音，视频，文字三种交流方式',
+            title:'PIGGYMATE',
+            h1:'猪队友·陪玩',
+            small:'PIGGYMATE PLAY',
+            text:'一个人玩游戏是不是有些寂寞？<br>四缺一是不是有些无奈说不出？<br>找些志同道合的人一起开黑吧！',
             imgUrl:'../static/img/diyiping-tu.png',
             color:''
           },
           {
-            title:'title0',
-            h1:'猪队友开黑房间004',
-            small:'zhu dui you kaihei0',
-            text:'独特的开黑房间包括了语音，视频，文字三种交流方式<br>独特的开黑房间包括了语音，视频，文字三种交流方式',
-            imgUrl:'../static/img/diyiping-tu.png',
-            color:''
-          },
-          {
-            title:'title0',
-            h1:'猪队友开黑房间005',
-            small:'zhu dui you kaihei0',
-            text:'独特的开黑房间包括了语音，视频，文字三种交流方式<br>独特的开黑房间包括了语音，视频，文字三种交流方式',
-            imgUrl:'../static/img/diyiping-tu.png',
-            color:''
-          },
-          {
-            title:'title0',
-            h1:'猪队友开黑房间006',
-            small:'zhu dui you kaihei0',
-            text:'独特的开黑房间包括了语音，视频，文字三种交流方式<br>独特的开黑房间包括了语音，视频，文字三种交流方式',
+            title:'PIGGYMATE',
+            h1:'猪队友·认证',
+            small:'PIGGYMATE IDENTIFICATUON',
+            text:'妹子/大神在上传完认证资料后，我们会在第一时间由后台人工审核。<br>审核成功后会有独特的认证标志并且可以成为陪玩自由定价开始接单啦。',
             imgUrl:'../static/img/diyiping-tu.png',
             color:''
           }
@@ -145,9 +129,9 @@ export default {
   },
   methods:{
     trans(){
-      // console.log(this.message)
-      this.content.context = this.textData[this.message-1];
-      this.content.class.transleave=false;
+        this.content.context = this.textData[this.thismessage];
+        this.content.class.transleave=false;
+      
     }
   },
   mounted(){
@@ -156,15 +140,20 @@ export default {
   computed:{
     pageclass(){
       return 
+    },
+    thismessage(){
+      if(this.message-1<0){
+        return 0
+      }else if(this.message-1>3){
+        return 3
+      }
+      return this.message-1
     }
   },
   watch:{
-    message(val, oldVal){
+    thismessage(val, oldVal){
       console.log(val+'=='+oldVal)
-      if(val>1){
-        this.content.class.transleave=true;
-      }
-      
+      this.content.class.transleave=true;
     }
   }
 }
@@ -291,7 +280,7 @@ export default {
       }
       small{
         display: inline-block;
-        font-size: 0.2rem;
+        font-size: 0.15rem;
         color: #9d65b2;
         opacity: 1;
         transition: all 1s;

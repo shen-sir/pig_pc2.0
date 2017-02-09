@@ -4,13 +4,19 @@
     <transition name="fade" >
       <hello v-show="show.show_0"></hello>
     </transition>
-    <Context :message="scrollNem"></Context>
+    <transition name="fade" >
+      <Context v-show="show.show_1" :message="scrollNem"></Context>
+    </transition>
+    <transition name="fade" >
+      <Finally v-show="show.show_2"></Finally> 
+    </transition>
   </div>
 </template>
 
 <script>
 import Hello from './components/Hello'
 import Context from './components/Context'
+import Finally from './components/Finally'
 
 export default {
   name: 'app',
@@ -22,16 +28,17 @@ export default {
         // show_1:false,
         show_1:false,
         show_2:false,
-        show_3:false,
+        /*show_3:false,
         show_4:false,
-        show_5:false
+        show_5:false*/
       },
       scrollNem:0
     }
   },
   components: {
     Hello,
-    Context
+    Context,
+    Finally
   },
   methods:{
     addEvent:(function(window, undefined) {        
@@ -73,22 +80,33 @@ export default {
         return function() {};    
     })(window),
     start(){
-      for(let i=0;i<6;i++){
+      for(let i=0;i<3;i++){
         this.show['show_'+i] = false;
         // console.log('show_'+i)
       }
-      this.show['show_'+this.scrollNem] = true;
+      // this.show['show_'+this.scrollNem] = true;
+      switch(this.scrollNem){
+        case 0: this.show.show_0 = true;
+        break;
+        case 1:
+        case 2:
+        case 3:
+        case 4:this.show.show_1 = true;
+        break;
+        case 5:this.show.show_2 = true;
+        break;
+      }
     },
   },
   mounted(){
     let that = this;
     this.addEvent(document.body,"mousewheel",function(event) {
-        if (event.delta < 0) {
+        if (event.delta < 0&&that.scrollNem<5) {
           // that.show = false;
           that.scrollNem += 1
           // console.log("鼠标向上滚了！");
           console.log(that.scrollNem)
-        }else{
+        }else if(that.scrollNem>0){
           // that.show = true;
           that.scrollNem -= 1
           // console.log('向下')
