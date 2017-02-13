@@ -45,18 +45,64 @@ export default {
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style lang = "less" scoped>
   @keyframes an{
-  0%{transform:rotate(0deg) ;}
-    100%{transform:rotate(720deg) ;}
+  0%{
+    transform: rotate(0deg);
+    -webkit-transform: rotate(0deg);
+    -ms-transform: rotate(0deg);
+    -o-transform: rotate(0deg);
+  }
+    100%{
+      transform: rotate(720deg);
+      -webkit-transform: rotate(720deg);
+      -ms-transform: rotate(720deg);
+      -o-transform: rotate(720deg);
+    }
+}
+@-webkit-keyframes an{
+  0%{
+    transform: rotate(0deg);
+    -webkit-transform: rotate(0deg);
+    -ms-transform: rotate(0deg);
+    -o-transform: rotate(0deg);
+  }
+    100%{
+      transform: rotate(720deg);
+      -webkit-transform: rotate(720deg);
+      -ms-transform: rotate(720deg);
+      -o-transform: rotate(720deg);
+    }
 }
 @keyframes anb{
-  0%{transform:rotate(0deg) ;}
-    100%{transform:rotate(-720deg) ;}
+  0%{
+    transform: rotate(0deg);
+    -webkit-transform: rotate(0deg);
+    -ms-transform: rotate(0deg);
+    -o-transform: rotate(0deg);
+  }
+  100%{
+    transform: rotate(-720deg);
+    -webkit-transform: rotate(-720deg);
+    -ms-transform: rotate(-720deg);
+    -o-transform: rotate(-720deg);
+  }
+}
+@-webkit-keyframes anb{
+  0%{
+    transform: rotate(0deg);
+    -webkit-transform: rotate(0deg);
+    -ms-transform: rotate(0deg);
+    -o-transform: rotate(0deg);
+  }
+  100%{
+    transform: rotate(-720deg);
+    -webkit-transform: rotate(-720deg);
+    -ms-transform: rotate(-720deg);
+    -o-transform: rotate(-720deg);
+  }
 }
 
   .body{
     height: 100%;
-    /*background-color: blue;*/
-    /*border:1px solid red;*/
     background-image: url("../assets/finally.png");
     background-size: cover;
     background-position: center; 
@@ -70,6 +116,9 @@ export default {
       top: 50%;
       left: 50%;
       transform: translate(-50%, -50%);
+      -webkit-transform: translate(-50%, -50%);
+      -ms-transform: translate(-50%, -50%);
+      -o-transform: translate(-50%, -50%);
       .left{
         /*border: 1px solid red;*/
         display: inline-block;
@@ -77,6 +126,9 @@ export default {
         top: 47%;
         left: 30%;
         transform: translate(-50%, -50%);
+        -webkit-transform: translate(-50%, -50%);
+        -ms-transform: translate(-50%, -50%);
+        -o-transform: translate(-50%, -50%);
         text-align: center;
         img{
           position: absolute;
@@ -86,10 +138,14 @@ export default {
         }
         .large{
           /*animation:animations3 2s linear infinite;*/
-           animation:an 20s infinite;
+          animation: an 20s infinite;
+          -o-animation: an 20s infinite;
+          -webkit-animation:an 20s infinite;
         }
-        .small{
-          animation:anb 20s infinite; 
+        .small{ 
+          animation: anb 20s infinite; 
+          -webkit-animation:anb 20s infinite;
+          -o-animation: anb 20s infinite;
         }
         .apple{
           margin: 28px ;
@@ -97,12 +153,14 @@ export default {
         h1{
           color: white;
           margin-top: 210px;
+          font-size: 34px;
           background: url(../assets/applelogo.png) no-repeat;
           background-position: 6px 4px;
           background-size: 30px;
         }
         small{
           color: #b57dea;
+          font-size: 14.16666px;
         }
       }
       .right {
@@ -112,19 +170,24 @@ export default {
         top: 47%;
         right: 0%;
         transform: translate(-50%, -50%);
+        -webkit-transform: translate(-50%, -50%);
+        -ms-transform: translate(-50%, -50%);
+        -o-transform: translate(-50%, -50%);
         text-align: center;
         img{
           position: absolute;
           left: 50px;
-          /*transform: translate(-50%, 0);*/
           margin: 0 auto;
         }
         .large{
-          /*animation:animations3 2s linear infinite;*/
-           animation:anb 20s infinite;
+          animation: anb 20s infinite;
+          -webkit-animation: anb 20s infinite;
+          -o-animation: anb 20s infinite;
         }
         .small{
-          animation:an 20s infinite; 
+           animation: an 20s infinite ;
+           -webkit-animation: an 20s infinite;
+           -o-animation: an 20s infinite;
         }
         .apple{
           margin: 28px ;
@@ -132,12 +195,14 @@ export default {
         h1{
           color: white;
           margin-top: 210px;
+          font-size: 34px;
           background: url(../assets/androidlogo.png) no-repeat;
           background-position: 6px 4px;
           background-size: 30px;
         }
         small{
           color: #b57dea;
+          font-size: 14.16666px;
         }
       }
     }

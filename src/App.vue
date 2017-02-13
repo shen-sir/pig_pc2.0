@@ -32,7 +32,8 @@ export default {
         show_4:false,
         show_5:false*/
       },
-      scrollNem:0
+      scrollNem:0,
+      trans:true
     }
   },
   components: {
@@ -94,6 +95,7 @@ export default {
         case 4:this.show.show_1 = true;
         break;
         case 5:this.show.show_2 = true;
+        case 6:this.show.show_2 = true;
         break;
       }
     },
@@ -101,19 +103,33 @@ export default {
   mounted(){
     let that = this;
     this.addEvent(document.body,"mousewheel",function(event) {
-        if (event.delta < 0&&that.scrollNem<5) {
-          // that.show = false;
-          that.scrollNem += 1
-          // console.log("鼠标向上滚了！");
-          console.log(that.scrollNem)
-        }else if(that.scrollNem>0){
-          // that.show = true;
-          that.scrollNem -= 1
-          // console.log('向下')
-          console.log(that.scrollNem)
-        }
-        that.start()
+      if (!that.trans) {
+        return
+      }
+      if (event.delta < 0&&that.scrollNem<6) {
+        // that.show = false;
+        that.scrollNem += 1
+        // console.log("鼠标向上滚了！");
+        console.log(that.scrollNem)
+      }else if(that.scrollNem>0){
+        // that.show = true;
+        that.scrollNem -= 1
+        // console.log('向下')
+        console.log(that.scrollNem)
+      }
+      that.start()
+      that.trans = false;
+      // if (that.scrollNem>1) {
+      //   that.trans = false;
+      // }
+      setTimeout(function(){
+        that.trans = true; 
+      },2000)
     })
+
+    /*this.$on('transitions', function (msg) {
+      that.trans = !that.trans;
+    })*/
   }
 }
 </script>
@@ -145,6 +161,7 @@ html{
   overflow:hidden;
 }
 .fade-enter-active, .fade-leave-active {
+  -webkit-transition: opacity .5s;
   transition: opacity .5s
 }
 .fade-enter, .fade-leave-to /* .fade-leave-active in <2.1.8 */ {

@@ -198,17 +198,13 @@ export default {
       top: 37%;
       left: 50%;
       transform: translate(-50%,-50%);
+      -webkit-transform: translate(-50%,-50%);
+      -ms-transform: translate(-50%,-50%);
+      -o-transform: translate(-50%,-50%);
       font-size: 0.3rem;
       color: white;
       text-align: center;
       width: 6rem;
     }
-   /* img{
-      position: absolute;
-      top: 50%;
-      left: 50%;
-      transform: translate(-50%,-50%);
-
-    }*/
   }
 </style>

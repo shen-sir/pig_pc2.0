@@ -13,7 +13,7 @@
                 v-bind:class="page.pageclass.top"
                 >{{item}} <strong>啊</strong>
                 </span>
-          <span>3</span>
+          <span v-bind:class="content.class">{{page.inpage}}</span>
       </div>
       <div @mouseenter="page.pageclass.bottom.pageEnter = true;"
            @mouseleave="page.pageclass.bottom.pageEnter = false;" 
@@ -21,7 +21,7 @@
           <span v-for="item in page.num.bottom"
                 class="initial"
                 v-bind:class="page.pageclass.bottom">{{item}}<strong>啊</strong></span>
-        <span>6</span>
+        <span>5</span>
       </div>
     </div>
     <div class="left-content">
@@ -59,8 +59,8 @@ export default {
         // parent:this.message,
         page:{
           num:{
-            bottom:[4,5,6,6],
-            top:[1,2,3,3],
+            top:[1],
+            bottom:[2,3,4,5],
             // text:
           },
           pageclass:{
@@ -73,7 +73,8 @@ export default {
               'pageEnter':false,
               'pageLeave':false
             }
-          }
+          },
+          inpage:1
         },
         content:{
           class:{
@@ -129,18 +130,28 @@ export default {
   },
   methods:{
     trans(){
-        this.content.context = this.textData[this.thismessage];
-        this.content.class.transleave=false;
+
+      this.content.context = this.textData[this.thismessage];
       
+      if (this.message>this.page.inpage) {
+        alert(9)
+        this.page.num.top.push(this.message);
+        this.page.num.bottom.shift()
+      }else if(this.message<this.page.inpage){
+        alert(1)
+        this.page.num.bottom.unshift(this.message+1);
+        this.page.num.top.pop();
+      }
+      this.page.inpage = this.message;
+      this.content.class.transleave=false;
+
+      // this.$emit('transitions','')
     }
   },
   mounted(){
     // console.log(this.show)
   },
   computed:{
-    pageclass(){
-      return 
-    },
     thismessage(){
       if(this.message-1<0){
         return 0
@@ -154,6 +165,7 @@ export default {
     thismessage(val, oldVal){
       console.log(val+'=='+oldVal)
       this.content.class.transleave=true;
+      // this.
     }
   }
 }
@@ -171,6 +183,9 @@ export default {
     top: 50%;
     left: 50%;
     transform: translate(-50%,-50%);
+    -ms-transform: translate(-50%,-50%);
+    -o-transform: translate(-50%,-50%);
+    -webkit-transform: translate(-50%,-50%);
     .title{
       position: absolute;
       height: 0.23rem;
@@ -182,6 +197,8 @@ export default {
       span{
         display: inline-block;
         transition: all 1s;
+        -o-transition: all 1s;
+        -webkit-transition: all 1s;
       }
       .transleave{
         margin-top:.3rem;
@@ -199,6 +216,10 @@ export default {
       .top,.bottom{
         text-align: center;
         background: white;
+        span:nth-last-of-type(2){
+          height: 0rem;
+          opacity: 0;
+        }
         span{
           display: block;
           width: 0.2rem;
@@ -213,17 +234,28 @@ export default {
             background-color: white;
             opacity: 0;
             transform: translate(-100%,100%);
+            -webkit-transform: translate(-100%,100%);
+            -ms-transform: translate(-100%,100%);
+            -o-transform: translate(-100%,100%);
             transition: all .5s;
+            -webkit-transition: all .5s;
+            -o-transition: all .5s;
+            
           }
         }
         span:hover>strong{
             opacity: 1;
             transform: translate(-100%,0%);
+            -webkit-transform: translate(-100%,0%);
+            -ms-transform: translate(-100%,0%);
+            -o-transform: translate(-100%,0%);
         }
         .initial{
           height: 0.0rem;
           opacity: 0;
           transition: all 1s;
+          -webkit-transition: all 1s;
+          -o-transition: all 1s;
         }
         .pageEnter{
           height: 0.32rem;
@@ -238,7 +270,20 @@ export default {
         position: absolute;
         bottom: 50%;
         left: 0%;
+        overflow-x: hidden;
         transform: translate(-50%,0);
+        -ms-transform: translate(-50%,0);
+        -o-transform: translate(-50%,0);
+        -webkit-transform: translate(-50%,0);
+        .transleave{
+          transform: translate(-20px,0);
+          -webkit-transform: translate(-20px,0);
+          -ms-transform: translate(-20px,0);
+          -o-transform: translate(-20px,0);
+          transition: all 1s;
+          -webkit-transition: all 1s;
+          -o-transition: all 1s;
+        }
       }
       .bottom{
         border-top: 1px solid black;
@@ -246,6 +291,9 @@ export default {
         top: 50%;
         left: 0.0rem;
         transform: translate(-50%,0);
+        -webkit-transform: translate(-50%,0);
+        -ms-transform: translate(-50%,0);
+        -o-transform: translate(-50%,0);
       }
     }
     .left-content{
@@ -253,7 +301,10 @@ export default {
       position: absolute;
       top: 36.7%;
       left: 25%;
-      transform: translate(-50%,0);
+      transform:  translate(-50%,0);
+      -webkit-transform:  translate(-50%,0);
+      -ms-transform:  translate(-50%,0);
+      -o-transform:  translate(-50%,0);
       .hid-h1{
         height: 0.40rem;
         overflow-y:hidden;
@@ -268,15 +319,21 @@ export default {
         margin-bottom: -0.15rem;
         color: #7e5fa0;
         opacity: 1;
-        transition: all 1s;
+        transition:  all 1s;
+        -webkit-transition:  all 1s;
+        -o-transition:  all 1s;
       }
       .transleave{
-        /*opacity: 0;*/
         transform: translate3d(0,0.8rem,0);
+        -webkit-transform: translate3d(0,0.8rem,0);
+        -ms-transform: translate3d(0,0.8rem,0);
+        -o-transform: translate3d(0,0.8rem,0);
       }
       .transenter{
-        /*opacity: 1;*/
         transform: translate3d(0,0px,0);
+        -webkit-transform: translate3d(0,0px,0);
+        -ms-transform: translate3d(0,0px,0);
+        -o-transform: translate3d(0,0px,0);
       }
       small{
         display: inline-block;
@@ -284,16 +341,23 @@ export default {
         color: #9d65b2;
         opacity: 1;
         transition: all 1s;
+        -webkit-transition: all 1s;
+        -o-transition: all 1s;
       }
       .line{
         height: 0.04rem;
         width: 0.82rem;
         background-color: #551e85;
         transition: all 1s;
+        -webkit-transition: all 1s;
+        -o-transition: all 1s;
       }
       .line.transleave{
         width: 0;
         transform: translate3d(0,0px,0);
+        -webkit-transform: translate3d(0,0px,0);
+        -ms-transform: translate3d(0,0px,0);
+        -o-transform: translate3d(0,0px,0);
       }
       .text{
         margin-left: 1.0rem;
@@ -305,6 +369,8 @@ export default {
         overflow-y: hidden;
         p{
           transition: all 1s;
+          -webkit-transition: all 1s;
+          -o-transition: all 1s;
         }
       }
     }
@@ -317,6 +383,9 @@ export default {
       bottom: -0.4rem;
       left: 50%;
       transform: translate(-50%,-50%);
+      -webkit-transform: translate(-50%,-50%);
+      -ms-transform: translate(-50%,-50%);
+      -o-transform: translate(-50%,-50%);
       .botton{
         width: 1.22rem;
         height: 0.36rem;
@@ -324,6 +393,8 @@ export default {
         background-color: red;
         margin: 0 auto;
         transition: all 1s;
+        -webkit-transition: all 1s;
+        -o-transition: all 1s;
       }
       .botton.transleave{
         margin-top: 0.5rem;
@@ -336,11 +407,19 @@ export default {
       top: 50%;
       right: 0;
       transform: translate(0,-50%);
+      -webkit-transform: translate(0,-50%);
+      -ms-transform: translate(0,-50%);
+      -o-transform: translate(0,-50%);
       transition: all 1s;
+      -webkit-transition: all 1s;
+      -o-transition: all 1s;
     }
     .right-content.transleave{
       opacity: 0;
       transform: translate(80%,-50%);
+      -webkit-transform: translate(80%,-50%);
+      -ms-transform: translate(80%,-50%);
+      -o-transform: translate(80%,-50%);
     }
   }
 
