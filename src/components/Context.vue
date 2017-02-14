@@ -16,6 +16,7 @@
                 </span>
           <span v-bind:class="content.class">{{page.inpage}}</span>
       </div>
+      <hr>
       <div @mouseenter="page.pageclass.bottom.pageEnter = true;"
            @mouseleave="page.pageclass.bottom.pageEnter = false;" 
             class="bottom">
@@ -59,12 +60,10 @@ export default {
   props:['message'],
   data () {
     return {
-        // parent:this.message,
         page:{
           num:{
             top:[1],
-            bottom:[2,3,4,5],
-            // text:
+            bottom:[2,3,4,5]
           },
           pageclass:{
             top:{
@@ -185,6 +184,13 @@ export default {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style lang = "less" scoped>
+@media screen and (min-width:1500px){
+     .body{
+      .right-content{
+        width: 5.5rem;
+      }
+     } 
+    }
   .body{
     height: 90%;
     width: 90%;
@@ -222,8 +228,11 @@ export default {
       width: 0.8rem;
       font-size: 20px;
       hr{
-        width: 0.2rem;
-        margin: 0 auto;
+        border-top: 1px solid #080808;
+        position: absolute;
+        bottom: 50%;
+        left: -11px;
+        width: 19px;
       }
       .top,.bottom{
         text-align: center;
@@ -288,17 +297,17 @@ export default {
         -o-transform: translate(-50%,0);
         -webkit-transform: translate(-50%,0);
         .transleave{
-          transform: translate(-20px,0);
-          -webkit-transform: translate(-20px,0);
-          -ms-transform: translate(-20px,0);
-          -o-transform: translate(-20px,0);
+          transform: translate(-35px,0);
+          -webkit-transform: translate(-35px,0);
+          -ms-transform: translate(-35px,0);
+          -o-transform: translate(-35px,0);
           transition: all 1s;
           -webkit-transition: all 1s;
           -o-transition: all 1s;
         }
       }
       .bottom{
-        border-top: 1px solid black;
+        /*border-top: 1px solid black;*/
         position: absolute;
         top: 50%;
         left: 0.0rem;
@@ -416,7 +425,7 @@ export default {
     
     .right-content{
       width: 4rem;
-      max-width: 420px;
+      /*max-width: 420px;*/
       position: absolute;
       top: 50%;
       right: 0;
