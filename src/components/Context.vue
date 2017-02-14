@@ -11,6 +11,7 @@
           <span v-for="item in page.num.top"
                 class="initial" 
                 v-bind:class="page.pageclass.top"
+                @click="pagetrans"
                 >{{item}} <strong>啊</strong>
                 </span>
           <span v-bind:class="content.class">{{page.inpage}}</span>
@@ -20,7 +21,9 @@
             class="bottom">
           <span v-for="item in page.num.bottom"
                 class="initial"
-                v-bind:class="page.pageclass.bottom">{{item}}<strong>啊</strong></span>
+                v-bind:class="page.pageclass.bottom"
+                @click="pagetrans"
+                >{{item}}<strong>啊</strong></span>
         <span>5</span>
       </div>
     </div>
@@ -42,7 +45,7 @@
         <p v-bind:class="content.class" v-html="content.context.text"></p>
       </div>
     </div>
-    <h1>000{{message}}</h1>
+    <!-- <h1>000{{message}}</h1> -->
     <img class="right-content" v-bind:class="content.class" :src="content.context.imgUrl">
     <div class="oh">
       <div class="botton" v-bind:class="content.class"></div>
@@ -105,7 +108,7 @@ export default {
             h1:'猪队友·开黑房间',
             small:'PIGGYMATE BLACK ROOM',
             text:'独特的开黑房间包括了语音，视频，文字三种交流方式。<br>房间中不仅包括了拉人踢人查看个人信息这些基础功能。',
-            imgUrl:'../static/img/diyiping-tu.png',
+            imgUrl:'../static/img/dierping-tu.png',
             color:''
           },
           {
@@ -113,7 +116,7 @@ export default {
             h1:'猪队友·陪玩',
             small:'PIGGYMATE PLAY',
             text:'一个人玩游戏是不是有些寂寞？<br>四缺一是不是有些无奈说不出？<br>找些志同道合的人一起开黑吧！',
-            imgUrl:'../static/img/diyiping-tu.png',
+            imgUrl:'../static/img/disanping-tu.png',
             color:''
           },
           {
@@ -121,7 +124,7 @@ export default {
             h1:'猪队友·认证',
             small:'PIGGYMATE IDENTIFICATUON',
             text:'妹子/大神在上传完认证资料后，我们会在第一时间由后台人工审核。<br>审核成功后会有独特的认证标志并且可以成为陪玩自由定价开始接单啦。',
-            imgUrl:'../static/img/diyiping-tu.png',
+            imgUrl:'../static/img/disiping-tu.png',
             color:''
           }
         ]
@@ -134,22 +137,32 @@ export default {
       this.content.context = this.textData[this.thismessage];
       
       if (this.message>this.page.inpage) {
-        alert(9)
-        this.page.num.top.push(this.message);
-        this.page.num.bottom.shift()
+        // alert(this.message-this.page.inpage+'向下')
+        for(let i=0;i <this.message-this.page.inpage;i++){
+          // alert('循环')
+          this.page.num.top.push(this.message-i);
+          this.page.num.bottom.shift()
+        }
       }else if(this.message<this.page.inpage){
-        alert(1)
-        this.page.num.bottom.unshift(this.message+1);
-        this.page.num.top.pop();
+        // alert(this.page.inpage-this.message)
+        for(let i=0;i <this.page.inpage-this.message;i++){
+          // alert('循环')
+          this.page.num.bottom.unshift(this.message+i+1);
+          this.page.num.top.pop();
+        }
+        
       }
+      this.page.num.bottom.sort();
+      this.page.num.top.sort();
       this.page.inpage = this.message;
       this.content.class.transleave=false;
-
-      // this.$emit('transitions','')
+    },
+    pagetrans(e){
+      // console.log(Number(e.currentTarget.childNodes[0].nodeValue) )
+      this.$emit('pagetrans',Number(e.currentTarget.childNodes[0].nodeValue))
     }
   },
   mounted(){
-    // console.log(this.show)
   },
   computed:{
     thismessage(){
@@ -165,7 +178,6 @@ export default {
     thismessage(val, oldVal){
       console.log(val+'=='+oldVal)
       this.content.class.transleave=true;
-      // this.
     }
   }
 }
@@ -388,9 +400,10 @@ export default {
       -o-transform: translate(-50%,-50%);
       .botton{
         width: 1.22rem;
+        max-width: 140px;
         height: 0.36rem;
-        border:1px solid black;
-        background-color: red;
+        max-height: 41px;
+        border:1px solid red;
         margin: 0 auto;
         transition: all 1s;
         -webkit-transition: all 1s;
@@ -403,6 +416,7 @@ export default {
     
     .right-content{
       width: 4rem;
+      max-width: 420px;
       position: absolute;
       top: 50%;
       right: 0;

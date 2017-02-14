@@ -5,7 +5,7 @@
       <hello v-show="show.show_0"></hello>
     </transition>
     <transition name="fade" >
-      <Context v-show="show.show_1" :message="scrollNem"></Context>
+      <Context @pagetrans="pagetrans" v-show="show.show_1" :message="scrollNem"></Context>
     </transition>
     <transition name="fade" >
       <Finally v-show="show.show_2"></Finally> 
@@ -99,6 +99,10 @@ export default {
         break;
       }
     },
+    pagetrans(msg){
+      // alert(msg+'====')
+      this.scrollNem = msg;
+    }
   },
   mounted(){
     let that = this;
@@ -126,10 +130,6 @@ export default {
         that.trans = true; 
       },2000)
     })
-
-    /*this.$on('transitions', function (msg) {
-      that.trans = !that.trans;
-    })*/
   }
 }
 </script>
